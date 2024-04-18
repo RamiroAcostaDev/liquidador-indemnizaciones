@@ -1,33 +1,107 @@
+//Cambiar float por numero entero y agragar el punto con un slice
+//
+
 "use client";
 import { useState } from "react";
 
 import { Box, Container } from "@mui/material";
 import moment from "moment";
 
-const defaultDate: Date = new Date();
-const defaultSalary: number = 0;
-interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
-interface ButtonClickEvent extends React.MouseEvent<HTMLButtonElement> {}
+interface Indemnización {
+  art245: number;
+  art232: number;
+  sacArt232: number;
+  art233: number;
+  sacArt233: number;
+  diasTrabajados: number;
+  vacacionesProporcionales: number;
+  sacVacaciones: number;
+  sacProporcional: number;
+  difSalarales: number;
+  horasExtras: number;
+  art8: number;
+  art9: number;
+  art10: number;
+  art15: number;
+  art80: number;
+  art2: number;
+}
+
+interface RelacionDeTrabajo {
+  fechaInicio: Date;
+  fechaFinal: Date;
+  salario: number;
+  periodo: number;
+  art8Checked: boolean;
+  art9Checked: boolean;
+  art10Checked: boolean;
+  art80Checked: boolean;
+  difSalarialesChecked: boolean;
+  horasExtrasChecked: boolean;
+}
+
+const indemnizacion: Indemnización = {
+  art245: 0,
+  art232: 0,
+  sacArt232: 0,
+  art233: 0,
+  sacArt233: 0,
+  diasTrabajados: 0,
+  vacacionesProporcionales: 0,
+  sacVacaciones: 0,
+  sacProporcional: 0,
+  difSalarales: 0,
+  horasExtras: 0,
+  art8: 0,
+  art9: 0,
+  art10: 0,
+  art15: 0,
+  art80: 0,
+  art2: 0,
+};
+
+const relacionDeTrabajo: RelacionDeTrabajo = {
+  fechaInicio: new Date(),
+  fechaFinal: new Date(),
+  salario: 0,
+  periodo: 0,
+  art8Checked: false,
+  art9Checked: false,
+  art10Checked: false,
+  art80Checked: false,
+  difSalarialesChecked: false,
+  horasExtrasChecked: false,
+};
 
 export default function CompensationLiquidator() {
-  const [initialDate, setInitialDate] = useState(defaultDate);
-  const [finalDate, setFinalDate] = useState(defaultDate);
-  const [salary, setSalary] = useState<number>(defaultSalary);
-  const [compensation, setCompensation] = useState<number>(0);
+  interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
-  const handleInitialDateChange = (event: InputChangeEvent) => {
-    setInitialDate(new Date(event.target.value));
-    console.log(initialDate);
+  const [indemnizacionTotal, setIndemnizacionTotal] = useState(indemnizacion);
+  const [inputRelacionDeTrabajo, setInputRelacionDeTrabajo] =
+    useState(relacionDeTrabajo);
+
+  const handleSalarioChange = (event: InputChangeEvent) => {
+    setInputRelacionDeTrabajo((prevState) => ({
+      ...prevState,
+      salario: Number(event.target.value),
+    }));
+    console.log("Salario: ", inputRelacionDeTrabajo.salario);
   };
 
-  const handleFinalDateChange = (event: InputChangeEvent) => {
-    setFinalDate(new Date(event.target.value));
-    console.log(finalDate);
+  const handleFechaInicioChange = (event: InputChangeEvent) => {
+    setInputRelacionDeTrabajo({
+      ...inputRelacionDeTrabajo,
+      fechaInicio: new Date(event.target.value),
+    });
+    console.log("Fecha inicial: ", inputRelacionDeTrabajo.fechaInicio);
   };
 
-  const handleSalaryChange = (event: InputChangeEvent) => {
-    setSalary(Number(event.target.value));
-    console.log(salary);
+  const handleFechaFinalChange = (event: InputChangeEvent) => {
+    setInputRelacionDeTrabajo((prevState) => ({
+      ...prevState,
+      fechaFinal: new Date(event.target.value),
+    }));
+    console.log("Fecha final: ", inputRelacionDeTrabajo.fechaFinal);
   };
 
   const calculatePeriod = (a: Date, b: Date): number => {
@@ -51,12 +125,22 @@ export default function CompensationLiquidator() {
     }
   };
 
-  const calculateCompensation = () => {
-    let period: number = calculatePeriod(initialDate, finalDate);
-    let compensation = period * salary;
-    console.log(compensation);
-    setCompensation(compensation);
+  const calcularArt245 = (
+    salario: number,
+    fechaInicial: Date,
+    fechaFinal: Date
+  ) => {
+    let periodo = calculatePeriod(fechaInicial, fechaFinal);
+    let indemnizacion245 = periodo * salario;
+    return indemnizacion245;
   };
+
+  // const calculateCompensation = () => {
+  //   let period: number = calculatePeriod(initialDate, finalDate);
+  //   let compensation = period * salary;
+  //   console.log(compensation);
+  //   setCompensation(compensation);
+  // };
 
   return (
     <>
@@ -74,7 +158,7 @@ export default function CompensationLiquidator() {
             Salary Input:{" "}
             <input
               type="text"
-              onChange={handleSalaryChange}
+              onChange={handleSalarioChange}
               style={{ border: "1px solid black", borderRadius: "5px" }}
             />
           </label>
@@ -82,7 +166,7 @@ export default function CompensationLiquidator() {
             Set Initial Date:{" "}
             <input
               type="date"
-              onChange={handleInitialDateChange}
+              onChange={handleFechaInicioChange}
               style={{
                 border: "1px solid black",
                 borderRadius: "5px",
@@ -94,7 +178,7 @@ export default function CompensationLiquidator() {
             Set Initial Date:{" "}
             <input
               type="date"
-              onChange={handleFinalDateChange}
+              onChange={handleFechaFinalChange}
               style={{
                 border: "1px solid black",
                 borderRadius: "5px",
@@ -106,9 +190,9 @@ export default function CompensationLiquidator() {
             Add Penalty <input type="checkbox" />
           </label>
 
-          <h1>Compensation: ${compensation}</h1>
+          <h1>0</h1>
           <button
-            onClick={calculateCompensation}
+            // onClick={calculateCompensation}
             style={{
               border: "1px solid black",
               borderRadius: "5px",
