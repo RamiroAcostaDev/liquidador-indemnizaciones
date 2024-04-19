@@ -135,6 +135,37 @@ export default function CompensationLiquidator() {
     return indemnizacion245;
   };
 
+  const calcularArt232 = (
+    salario: number,
+    fechaInicial: Date,
+    fechaFinal: Date
+  ) => {
+    let salarioPorDia = salario / 30;
+    let periodo = calculatePeriod(fechaInicial, fechaFinal);
+    if (periodo <= 3) {
+      return salarioPorDia * 15;
+    } else if (periodo > 3 && periodo <= 5) {
+      return salarioPorDia * 30;
+    } else {
+      return salarioPorDia * 60;
+    }
+  };
+
+  const calcularArt233 = (salario: number, fechaFinal: Date) => {
+    const diasTrabajados = moment(fechaFinal)
+      .utcOffset(new Date().getTimezoneOffset())
+      .date();
+    console.log(diasTrabajados);
+    const diasDelMes = moment(fechaFinal).daysInMonth();
+    const salarioPorDia = salario / diasDelMes;
+    if (diasTrabajados === diasDelMes) {
+      return 0;
+    } else {
+      return console.log(salarioPorDia * (diasDelMes - diasTrabajados));
+    }
+  };
+
+  calcularArt233(100, inputRelacionDeTrabajo.fechaFinal);
   // const calculateCompensation = () => {
   //   let period: number = calculatePeriod(initialDate, finalDate);
   //   let compensation = period * salary;
