@@ -3,7 +3,7 @@
 //
 
 import { useState } from "react";
-import { Indemnización, RelacionDeTrabajo } from "./Types";
+import { Indemnización, RelacionDeTrabajo, InputChangeEvent } from "./Types";
 import {
   calcularArt245,
   calcularArt232,
@@ -12,46 +12,45 @@ import {
   sacSobreArt233,
   diasTrabajadosMesEnCurso,
   calcularSacProporcional,
+  vacacionesProporcionales,
+  SacSobreVacaciones,
 } from "./Functions";
-import moment from "moment";
+
 import { Box, Container } from "@mui/material";
 
-const indemnizacion: Indemnización = {
-  art245: 0,
-  art232: 0,
-  sacArt232: 0,
-  art233: 0,
-  sacArt233: 0,
-  diasTrabajados: 0,
-  vacacionesProporcionales: 0,
-  sacVacaciones: 0,
-  sacProporcional: 0,
-  difSalarales: 0,
-  horasExtras: 0,
-  art8: 0,
-  art9: 0,
-  art10: 0,
-  art15: 0,
-  art80: 0,
-  art2: 0,
-};
-
-const relacionDeTrabajo: RelacionDeTrabajo = {
-  fechaInicio: new Date(),
-  fechaFinal: new Date(),
-  salario: 0,
-  periodo: 0,
-  art8Checked: false,
-  art9Checked: false,
-  art10Checked: false,
-  art80Checked: false,
-  difSalarialesChecked: false,
-  horasExtrasChecked: false,
-};
-
 export default function CompensationLiquidator() {
-  interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
+  const indemnizacion: Indemnización = {
+    art245: 0,
+    art232: 0,
+    sacArt232: 0,
+    art233: 0,
+    sacArt233: 0,
+    diasTrabajados: 0,
+    vacacionesProporcionales: 0,
+    sacVacaciones: 0,
+    sacProporcional: 0,
+    difSalarales: 0,
+    horasExtras: 0,
+    art8: 0,
+    art9: 0,
+    art10: 0,
+    art15: 0,
+    art80: 0,
+    art2: 0,
+  };
 
+  const relacionDeTrabajo: RelacionDeTrabajo = {
+    fechaInicio: new Date(),
+    fechaFinal: new Date(),
+    salario: 0,
+    periodo: 0,
+    art8Checked: false,
+    art9Checked: false,
+    art10Checked: false,
+    art80Checked: false,
+    difSalarialesChecked: false,
+    horasExtrasChecked: false,
+  };
   const [indemnizacionTotal, setIndemnizacionTotal] = useState(indemnizacion);
   const [inputRelacionDeTrabajo, setInputRelacionDeTrabajo] =
     useState(relacionDeTrabajo);
@@ -114,10 +113,17 @@ export default function CompensationLiquidator() {
         inputRelacionDeTrabajo.salario,
         inputRelacionDeTrabajo.fechaFinal
       ),
+      vacacionesProporcionales: vacacionesProporcionales(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaInicio,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+      sacVacaciones: SacSobreVacaciones(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaInicio,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
     });
-    console.log("Indemnización Art 245 LCT: ", indemnizacionTotal.art245);
-    console.log("Indemnización Art 232 LCT: ", indemnizacionTotal.art232);
-    console.log("Indemnización Art 233 LCT: ", indemnizacionTotal.art233);
   };
 
   return (
@@ -216,33 +222,45 @@ export default function CompensationLiquidator() {
               <ul>
                 <li>
                   {indemnizacionTotal.art245 > 0 && (
-                    <p>Art 245: {indemnizacionTotal.art245}</p>
+                    <p>
+                      Indemnización por despido (Art. 245):{" "}
+                      {indemnizacionTotal.art245}
+                    </p>
                   )}
                 </li>
                 <li>
                   {indemnizacionTotal.art232 > 0 && (
-                    <p>Art 232: {indemnizacionTotal.art232}</p>
+                    <p>
+                      Indemnización sustitutiva de Preaviso (Art. 232 LCT):{" "}
+                      {indemnizacionTotal.art232}
+                    </p>
                   )}
                 </li>
                 <li>
                   {indemnizacionTotal.sacArt232 > 0 && (
-                    <p>Sac Art 232: {indemnizacionTotal.sacArt232}</p>
+                    <p>SAC s/ Preaviso: {indemnizacionTotal.sacArt232}</p>
                   )}
                 </li>
                 <li>
                   {indemnizacionTotal.art233 > 0 && (
-                    <p>Art 233: {indemnizacionTotal.art233}</p>
+                    <p>
+                      Integración Mes Despido (Art. 233 LCT):{" "}
+                      {indemnizacionTotal.art233}
+                    </p>
                   )}
                 </li>
                 <li>
                   {indemnizacionTotal.sacArt233 > 0 && (
-                    <p>Sac Art 233: {indemnizacionTotal.sacArt233}</p>
+                    <p>
+                      SAC s/ Integración Mes Despido:{" "}
+                      {indemnizacionTotal.sacArt233}
+                    </p>
                   )}
                 </li>
                 <li>
                   {indemnizacionTotal.diasTrabajados > 0 && (
                     <p>
-                      Dias trabajados mes en curso:
+                      Dias trabajados mes en curso :{" "}
                       {indemnizacionTotal.diasTrabajados}
                     </p>
                   )}
@@ -250,8 +268,21 @@ export default function CompensationLiquidator() {
                 <li>
                   {indemnizacionTotal.sacProporcional > 0 && (
                     <p>
-                      Sac Proporcional: {indemnizacionTotal.sacProporcional}
+                      SAC proporcional: {indemnizacionTotal.sacProporcional}
                     </p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.vacacionesProporcionales > 0 && (
+                    <p>
+                      Vacaciones proporcionales:{" "}
+                      {indemnizacionTotal.vacacionesProporcionales}
+                    </p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.sacVacaciones > 0 && (
+                    <p>SAC s/ Vacaciones: {indemnizacionTotal.sacVacaciones}</p>
                   )}
                 </li>
               </ul>

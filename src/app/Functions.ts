@@ -93,7 +93,9 @@ const diasTrabajadosMesEnCurso = (salario: number, fechaFinal: Date) => {
   const diasTrabajados = moment(fechaFinal)
     .utcOffset(new Date().getTimezoneOffset())
     .date();
+  console.log("Dias trabajados: ", diasTrabajados);
   const diasDelMes = moment(fechaFinal).daysInMonth();
+  console.log("Dias del mes: ", diasDelMes);
   const salarioPorDia = salario / diasDelMes;
   let diasTrabajadosMesEnCurso = salarioPorDia * diasTrabajados;
   return diasTrabajadosMesEnCurso;
@@ -115,6 +117,46 @@ const calcularSacProporcional = (sueldo: number, fecha: Date) => {
     return sacProporcional;
   }
 };
+//Calcula las vacaciones proporcionales
+const vacacionesProporcionales = (
+  salario: number,
+  fechaInicial: Date,
+  fechaFinal: Date
+) => {
+  let periodo = calculatePeriod(fechaInicial, fechaFinal);
+  const fechaDeDistracto = moment(fechaFinal);
+  const diasTrabajadosEnElAnio = fechaDeDistracto.dayOfYear();
+  const esAñoBisiesto = fechaDeDistracto.isLeapYear();
+  const diasEnElAnio = esAñoBisiesto ? 366 : 365;
+  let vacacionesPorAntiguedad = 0;
+  if (periodo <= 5) {
+    vacacionesPorAntiguedad = 14;
+  } else if (periodo > 5 && periodo <= 10) {
+    vacacionesPorAntiguedad = 21;
+  } else if (periodo > 10 && periodo <= 20) {
+    vacacionesPorAntiguedad = 28;
+  } else {
+    vacacionesPorAntiguedad = 35;
+  }
+  let vacacionesCorrespondientes =
+    (diasTrabajadosEnElAnio * vacacionesPorAntiguedad) / diasEnElAnio;
+  let vacacionesProporcionales = (salario / 25) * vacacionesCorrespondientes;
+  return vacacionesProporcionales;
+};
+
+const SacSobreVacaciones = (
+  salario: number,
+  fechaInicial: Date,
+  fechaFinal: Date
+) => {
+  let resultadoVacaciones: number = vacacionesProporcionales(
+    salario,
+    fechaInicial,
+    fechaFinal
+  );
+  let sacSobreVacaciones = (resultadoVacaciones * (833 / 100)) / 100;
+  return sacSobreVacaciones;
+};
 
 export {
   calcularArt245,
@@ -125,4 +167,6 @@ export {
   sacSobreArt233,
   diasTrabajadosMesEnCurso,
   calcularSacProporcional,
+  vacacionesProporcionales,
+  SacSobreVacaciones,
 };
