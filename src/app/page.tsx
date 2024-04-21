@@ -1,44 +1,20 @@
+"use client";
 //Cambiar float por numero entero y agragar el punto con un slice
 //
 
-"use client";
 import { useState } from "react";
-
-import { Box, Container } from "@mui/material";
+import { Indemnización, RelacionDeTrabajo } from "./Types";
+import {
+  calcularArt245,
+  calcularArt232,
+  sacSobreArt232,
+  calcularArt233,
+  sacSobreArt233,
+  diasTrabajadosMesEnCurso,
+  calcularSacProporcional,
+} from "./Functions";
 import moment from "moment";
-
-interface Indemnización {
-  art245: number;
-  art232: number;
-  sacArt232: number;
-  art233: number;
-  sacArt233: number;
-  diasTrabajados: number;
-  vacacionesProporcionales: number;
-  sacVacaciones: number;
-  sacProporcional: number;
-  difSalarales: number;
-  horasExtras: number;
-  art8: number;
-  art9: number;
-  art10: number;
-  art15: number;
-  art80: number;
-  art2: number;
-}
-
-interface RelacionDeTrabajo {
-  fechaInicio: Date;
-  fechaFinal: Date;
-  salario: number;
-  periodo: number;
-  art8Checked: boolean;
-  art9Checked: boolean;
-  art10Checked: boolean;
-  art80Checked: boolean;
-  difSalarialesChecked: boolean;
-  horasExtrasChecked: boolean;
-}
+import { Box, Container } from "@mui/material";
 
 const indemnizacion: Indemnización = {
   art245: 0,
@@ -81,10 +57,10 @@ export default function CompensationLiquidator() {
     useState(relacionDeTrabajo);
 
   const handleSalarioChange = (event: InputChangeEvent) => {
-    setInputRelacionDeTrabajo((prevState) => ({
-      ...prevState,
+    setInputRelacionDeTrabajo({
+      ...inputRelacionDeTrabajo,
       salario: Number(event.target.value),
-    }));
+    });
     console.log("Salario: ", inputRelacionDeTrabajo.salario);
   };
 
@@ -97,141 +73,190 @@ export default function CompensationLiquidator() {
   };
 
   const handleFechaFinalChange = (event: InputChangeEvent) => {
-    setInputRelacionDeTrabajo((prevState) => ({
-      ...prevState,
+    setInputRelacionDeTrabajo({
+      ...inputRelacionDeTrabajo,
       fechaFinal: new Date(event.target.value),
-    }));
+    });
     console.log("Fecha final: ", inputRelacionDeTrabajo.fechaFinal);
   };
 
-  const calculatePeriod = (a: Date, b: Date): number => {
-    let initialDateMoment = moment(a);
-    let finalDateMoment = moment(b);
-    let diffYears = finalDateMoment.diff(initialDateMoment, "years");
-    initialDateMoment.add(diffYears, "years");
-
-    let calculatedPeriod = diffYears;
-
-    let remainingMonths = finalDateMoment.diff(initialDateMoment, "months");
-    if (remainingMonths >= 3) {
-      calculatedPeriod++;
-    }
-
-    if (calculatedPeriod < 1) {
-      console.log("La fecha final no puede ser menor a la fecha inicial");
-      return 0;
-    } else {
-      return calculatedPeriod;
-    }
+  const calcularIndemnizacion = () => {
+    setIndemnizacionTotal({
+      ...indemnizacionTotal,
+      art245: calcularArt245(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaInicio,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+      art232: calcularArt232(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaInicio,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+      art233: calcularArt233(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+      sacArt232: sacSobreArt232(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaInicio,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+      sacArt233: sacSobreArt233(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+      diasTrabajados: diasTrabajadosMesEnCurso(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+      sacProporcional: calcularSacProporcional(
+        inputRelacionDeTrabajo.salario,
+        inputRelacionDeTrabajo.fechaFinal
+      ),
+    });
+    console.log("Indemnización Art 245 LCT: ", indemnizacionTotal.art245);
+    console.log("Indemnización Art 232 LCT: ", indemnizacionTotal.art232);
+    console.log("Indemnización Art 233 LCT: ", indemnizacionTotal.art233);
   };
-
-  const calcularArt245 = (
-    salario: number,
-    fechaInicial: Date,
-    fechaFinal: Date
-  ) => {
-    let periodo = calculatePeriod(fechaInicial, fechaFinal);
-    let indemnizacion245 = periodo * salario;
-    return indemnizacion245;
-  };
-
-  const calcularArt232 = (
-    salario: number,
-    fechaInicial: Date,
-    fechaFinal: Date
-  ) => {
-    let salarioPorDia = salario / 30;
-    let periodo = calculatePeriod(fechaInicial, fechaFinal);
-    if (periodo <= 3) {
-      return salarioPorDia * 15;
-    } else if (periodo > 3 && periodo <= 5) {
-      return salarioPorDia * 30;
-    } else {
-      return salarioPorDia * 60;
-    }
-  };
-
-  const calcularArt233 = (salario: number, fechaFinal: Date) => {
-    const diasTrabajados = moment(fechaFinal)
-      .utcOffset(new Date().getTimezoneOffset())
-      .date();
-    console.log(diasTrabajados);
-    const diasDelMes = moment(fechaFinal).daysInMonth();
-    const salarioPorDia = salario / diasDelMes;
-    if (diasTrabajados === diasDelMes) {
-      return 0;
-    } else {
-      return console.log(salarioPorDia * (diasDelMes - diasTrabajados));
-    }
-  };
-
-  calcularArt233(100, inputRelacionDeTrabajo.fechaFinal);
-  // const calculateCompensation = () => {
-  //   let period: number = calculatePeriod(initialDate, finalDate);
-  //   let compensation = period * salary;
-  //   console.log(compensation);
-  //   setCompensation(compensation);
-  // };
 
   return (
     <>
-      <Container maxWidth="xs">
+      <Container>
         <Box
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
           alignItems={"center"}
-          gap={5}
+          gap={10}
         >
           <h1>Compensation Liquidator</h1>
-          <label>
-            {" "}
-            Salary Input:{" "}
-            <input
-              type="text"
-              onChange={handleSalarioChange}
-              style={{ border: "1px solid black", borderRadius: "5px" }}
-            />
-          </label>
-          <label>
-            Set Initial Date:{" "}
-            <input
-              type="date"
-              onChange={handleFechaInicioChange}
-              style={{
-                border: "1px solid black",
-                borderRadius: "5px",
-                padding: "5px",
-              }}
-            />
-          </label>
-          <label>
-            Set Initial Date:{" "}
-            <input
-              type="date"
-              onChange={handleFechaFinalChange}
-              style={{
-                border: "1px solid black",
-                borderRadius: "5px",
-                padding: "5px",
-              }}
-            />
-          </label>
-          <label>
-            Add Penalty <input type="checkbox" />
-          </label>
-
-          <h1>0</h1>
-          <button
-            // onClick={calculateCompensation}
-            style={{
-              border: "1px solid black",
-              borderRadius: "5px",
-              padding: "5px",
-            }}
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            flexDirection={{ xs: "column", sm: "row" }}
+            gap={10}
           >
-            Calculate
-          </button>
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={3}
+            >
+              <label
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Salary Input:
+                <input
+                  type="text"
+                  onChange={handleSalarioChange}
+                  style={{ border: "1px solid black", borderRadius: "5px" }}
+                />
+              </label>
+              <label
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Set Initial Date:
+                <input
+                  type="date"
+                  onChange={handleFechaInicioChange}
+                  style={{
+                    border: "1px solid black",
+                    borderRadius: "5px",
+                    padding: "5px",
+                  }}
+                />
+              </label>
+              <label
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Set Initial Date:
+                <input
+                  type="date"
+                  onChange={handleFechaFinalChange}
+                  style={{
+                    border: "1px solid black",
+                    borderRadius: "5px",
+                    padding: "5px",
+                  }}
+                />
+              </label>
+              <label>
+                Add Penalty <input type="checkbox" />
+              </label>
+              <button
+                onClick={calcularIndemnizacion}
+                style={{
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
+              >
+                Calculate
+              </button>
+            </Box>
+            <Box>
+              <ul>
+                <li>
+                  {indemnizacionTotal.art245 > 0 && (
+                    <p>Art 245: {indemnizacionTotal.art245}</p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.art232 > 0 && (
+                    <p>Art 232: {indemnizacionTotal.art232}</p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.sacArt232 > 0 && (
+                    <p>Sac Art 232: {indemnizacionTotal.sacArt232}</p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.art233 > 0 && (
+                    <p>Art 233: {indemnizacionTotal.art233}</p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.sacArt233 > 0 && (
+                    <p>Sac Art 233: {indemnizacionTotal.sacArt233}</p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.diasTrabajados > 0 && (
+                    <p>
+                      Dias trabajados mes en curso:
+                      {indemnizacionTotal.diasTrabajados}
+                    </p>
+                  )}
+                </li>
+                <li>
+                  {indemnizacionTotal.sacProporcional > 0 && (
+                    <p>
+                      Sac Proporcional: {indemnizacionTotal.sacProporcional}
+                    </p>
+                  )}
+                </li>
+              </ul>
+            </Box>
+          </Box>
         </Box>
       </Container>
     </>
