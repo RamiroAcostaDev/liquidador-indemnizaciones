@@ -1,6 +1,8 @@
 "use client";
 //Cambiar float por numero entero y agragar el punto con un slice
-//
+//Investigar useReducer para manipular estados globales
+//Hacer componentes para cada función
+//Ver formato de numeros
 
 import { useState } from "react";
 import { Indemnización, RelacionDeTrabajo, InputChangeEvent } from "./Types";
