@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
+
 export default function InputsData() {
   const context = useContext(ContextProvider);
 
@@ -20,11 +21,18 @@ export default function InputsData() {
     setSalario,
     periodo,
     setPeriodo,
+    salarioPercibido,
+    setSalarioPercibido,
   } = context;
 
   const handleSalarioChange = (event: InputChangeEvent) => {
     setSalario(Number(event.target.value));
     console.log("Salario: ", salario);
+  };
+
+  const handleSalarioPercibidoChange = (event: InputChangeEvent) => {
+    setSalarioPercibido(Number(event.target.value));
+    console.log("Salario percibido: ", salarioPercibido);
   };
 
   const handleFechaInicioChange = (event: InputChangeEvent) => {
@@ -77,10 +85,25 @@ export default function InputsData() {
           alignItems: "center",
         }}
       >
-        Salary Input:
+        Remuneracion Devengada:
         <input
           type="number"
           onChange={handleSalarioChange}
+          style={{ border: "1px solid black", borderRadius: "5px" }}
+        />
+      </label>
+      <label
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Remuneracion Percibida:
+        <input
+          type="number"
+          onChange={handleSalarioPercibidoChange}
           style={{ border: "1px solid black", borderRadius: "5px" }}
         />
       </label>

@@ -34,8 +34,12 @@ interface ContextType {
   setFechaFinal: (value: Date) => void;
   salario: number;
   setSalario: (value: number) => void;
+  salarioPercibido: number;
+  setSalarioPercibido: (value: number) => void;
   periodo: number;
   setPeriodo: (value: number) => void;
+  diferenciasSalariales: number;
+  setDiferenciasSalariales: (value: number) => void;
 }
 
 interface ContextsProviderProps {
@@ -54,10 +58,12 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
   const [vacacionesProporcionales, setVacacionesProporcionales] = useState(0);
   const [sacSobreVacaciones, setSacSobreVacaciones] = useState(0);
   const [sacProporcional, setSacProporcional] = useState(0);
+  const [diferenciasSalariales, setDiferenciasSalariales] = useState(0);
 
   const [fechaInicial, setFechaInicial] = useState(new Date());
   const [fechaFinal, setFechaFinal] = useState(new Date());
   const [salario, setSalario] = useState(0);
+  const [salarioPercibido, setSalarioPercibido] = useState(0);
   const [periodo, setPeriodo] = useState(0);
 
   return (
@@ -91,8 +97,12 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
         setFechaFinal,
         salario,
         setSalario,
+        salarioPercibido,
+        setSalarioPercibido,
         periodo,
         setPeriodo,
+        diferenciasSalariales,
+        setDiferenciasSalariales,
       }}
     >
       {children}
