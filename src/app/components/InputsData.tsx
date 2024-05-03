@@ -23,6 +23,12 @@ export default function InputsData() {
     setPeriodo,
     salarioPercibido,
     setSalarioPercibido,
+    horasLaboradasPorDia,
+    setHorasLaboradasPorDia,
+    diasTrabajadosPorSemana,
+    setDiasTrabajadosPorSemana,
+    jornadaMaximaLegal,
+    setJornadaMaximaLegal,
   } = context;
 
   const handleSalarioChange = (event: InputChangeEvent) => {
@@ -43,6 +49,24 @@ export default function InputsData() {
   const handleFechaFinalChange = (event: InputChangeEvent) => {
     setFechaFinal(new Date(event.target.value));
     console.log("Fecha final: ", fechaFinal);
+  };
+
+  const handleHorasLaboradasPorDiaChange = (event: InputChangeEvent) => {
+    setHorasLaboradasPorDia(Number(event.target.value));
+    console.log("Horas laboradas por día: ", horasLaboradasPorDia);
+  };
+
+  const handleDiasTrabajadosPorSemanaChange = (event: InputChangeEvent) => {
+    setDiasTrabajadosPorSemana(Number(event.target.value));
+    console.log(
+      "Cantidad de días trabajados por semana: ",
+      diasTrabajadosPorSemana
+    );
+  };
+
+  const handleJornadaMaximaLegalChange = (event: InputChangeEvent) => {
+    setJornadaMaximaLegal(Number(event.target.value));
+    console.log("Jornada máxima legal: ", jornadaMaximaLegal);
   };
 
   const calculatePeriod = (a: Date, b: Date) => {
@@ -115,7 +139,7 @@ export default function InputsData() {
           alignItems: "center",
         }}
       >
-        Set Initial Date:
+        Fecha Inicial:
         <input
           type="date"
           onChange={handleFechaInicioChange}
@@ -134,10 +158,73 @@ export default function InputsData() {
           alignItems: "center",
         }}
       >
-        Set Initial Date:
+        Fecha Final:
         <input
           type="date"
           onChange={handleFechaFinalChange}
+          style={{
+            border: "1px solid black",
+            borderRadius: "5px",
+            padding: "5px",
+          }}
+        />
+      </label>
+      <label
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Horas diarias trabajadas:
+        <input
+          type="number"
+          onChange={handleHorasLaboradasPorDiaChange}
+          max={24}
+          min={1}
+          style={{
+            border: "1px solid black",
+            borderRadius: "5px",
+            padding: "5px",
+          }}
+        />
+      </label>
+      <label
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Días trabajados en la semana:
+        <input
+          type="number"
+          onChange={handleDiasTrabajadosPorSemanaChange}
+          max={7}
+          min={1}
+          style={{
+            border: "1px solid black",
+            borderRadius: "5px",
+            padding: "5px",
+          }}
+        />
+      </label>
+      <label
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Jornada maxima semanal CCT:
+        <input
+          type="number"
+          onChange={handleJornadaMaximaLegalChange}
+          max={48}
+          min={1}
           style={{
             border: "1px solid black",
             borderRadius: "5px",
