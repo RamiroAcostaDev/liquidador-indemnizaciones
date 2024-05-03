@@ -40,6 +40,14 @@ interface ContextType {
   setPeriodo: (value: number) => void;
   diferenciasSalariales: number;
   setDiferenciasSalariales: (value: number) => void;
+  horasExtras: number;
+  setHorasExtras: (value: number) => void;
+  horasLaboradasPorDia: number;
+  setHorasLaboradasPorDia: (value: number) => void;
+  diasTrabajadosPorSemana: number;
+  setDiasTrabajadosPorSemana: (value: number) => void;
+  jornadaMaximaLegal: number;
+  setJornadaMaximaLegal: (value: number) => void;
 }
 
 interface ContextsProviderProps {
@@ -59,6 +67,10 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
   const [sacSobreVacaciones, setSacSobreVacaciones] = useState(0);
   const [sacProporcional, setSacProporcional] = useState(0);
   const [diferenciasSalariales, setDiferenciasSalariales] = useState(0);
+  const [horasExtras, setHorasExtras] = useState(0);
+  const [horasLaboradasPorDia, setHorasLaboradasPorDia] = useState(0);
+  const [diasTrabajadosPorSemana, setDiasTrabajadosPorSemana] = useState(0);
+  const [jornadaMaximaLegal, setJornadaMaximaLegal] = useState(0);
 
   const [fechaInicial, setFechaInicial] = useState(new Date());
   const [fechaFinal, setFechaFinal] = useState(new Date());
@@ -103,6 +115,14 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
         setPeriodo,
         diferenciasSalariales,
         setDiferenciasSalariales,
+        horasExtras,
+        setHorasExtras,
+        horasLaboradasPorDia,
+        setHorasLaboradasPorDia,
+        diasTrabajadosPorSemana,
+        setDiasTrabajadosPorSemana,
+        jornadaMaximaLegal,
+        setJornadaMaximaLegal,
       }}
     >
       {children}
