@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const Art245 = () => {
   const context = useContext(ContextProvider);
 
@@ -21,7 +21,11 @@ const Art245 = () => {
 
   return (
     <li>
-      {art245 > 0 && <p>Indemnización por despido (Art. 245): {art245}</p>}
+      {art245 > 0 && (
+        <p>
+          Indemnización por despido (Art. 245): {formatearNumeroAmoneda(art245)}
+        </p>
+      )}
     </li>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 
 const Art2Ley25323 = () => {
   const context = useContext(ContextProvider);
@@ -19,7 +20,11 @@ const Art2Ley25323 = () => {
   useEffect(() => {
     calcularArt2Ley25323();
   }, [art245, art232, sacArt232, art233, sacArt233]);
-  return <li>{art2 > 0 && <p>Art 2 Ley 25323: {art2}</p>}</li>;
+  return (
+    <li>
+      {art2 > 0 && <p>Art 2 Ley 25323: {formatearNumeroAmoneda(art2)}</p>}
+    </li>
+  );
 };
 
 export default Art2Ley25323;

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const HorasExtras = () => {
   const context = useContext(ContextProvider);
 
@@ -82,7 +82,13 @@ const HorasExtras = () => {
     fechaFinal,
   ]);
 
-  return <li>{horasExtras > 0 && <p>Horas Extras : {horasExtras}</p>}</li>;
+  return (
+    <li>
+      {horasExtras > 0 && (
+        <p>Horas Extras : {formatearNumeroAmoneda(horasExtras)}</p>
+      )}
+    </li>
+  );
 };
 
 export default HorasExtras;

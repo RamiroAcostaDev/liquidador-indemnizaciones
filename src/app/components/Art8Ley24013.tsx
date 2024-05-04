@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 
 const Art8Ley24013 = () => {
   const context = useContext(ContextProvider);
@@ -27,7 +28,11 @@ const Art8Ley24013 = () => {
   useEffect(() => {
     calcularArt8Ley24013(salario, fechaInicial, fechaFinal);
   }, [salario, fechaInicial, fechaFinal]);
-  return <li>{art8 > 0 && <p>Art 8 Ley 24013: {art8}</p>}</li>;
+  return (
+    <li>
+      {art8 > 0 && <p>Art 8 Ley 24013: {formatearNumeroAmoneda(art8)}</p>}
+    </li>
+  );
 };
 
 export default Art8Ley24013;

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const SacArt233 = () => {
   const context = useContext(ContextProvider);
 
@@ -19,7 +19,11 @@ const SacArt233 = () => {
     sacSobreArt233(art233);
   }, [art233]);
 
-  return <li>{sacArt233 > 0 && <p>SAC Art 233: {sacArt233}</p>}</li>;
+  return (
+    <li>
+      {sacArt233 > 0 && <p>SAC Art 233: {formatearNumeroAmoneda(sacArt233)}</p>}
+    </li>
+  );
 };
 
 export default SacArt233;

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const DiasTrabajadosMesEnCurso = () => {
   const context = useContext(ContextProvider);
   if (!context) {
@@ -35,7 +35,10 @@ const DiasTrabajadosMesEnCurso = () => {
   return (
     <li>
       {diasTrabajadosMesEnCurso > 0 && (
-        <p>Dias Trabajados Mes En Curso: {diasTrabajadosMesEnCurso}</p>
+        <p>
+          Dias Trabajados Mes En Curso:{" "}
+          {formatearNumeroAmoneda(diasTrabajadosMesEnCurso)}
+        </p>
       )}
     </li>
   );

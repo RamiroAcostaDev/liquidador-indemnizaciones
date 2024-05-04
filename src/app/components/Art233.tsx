@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, use } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const Art233 = () => {
   const context = useContext(ContextProvider);
 
@@ -30,7 +30,9 @@ const Art233 = () => {
     calcularArt233(salario, fechaFinal);
   }, [salario, fechaFinal]);
 
-  return <li>{art233 > 0 && <p>Art 233: {art233}</p>}</li>;
+  return (
+    <li>{art233 > 0 && <p>Art 233: {formatearNumeroAmoneda(art233)}</p>}</li>
+  );
 };
 
 export default Art233;

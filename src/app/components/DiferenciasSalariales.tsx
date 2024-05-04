@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const DiferenciasSalariales = () => {
   const context = useContext(ContextProvider);
 
@@ -52,7 +52,10 @@ const DiferenciasSalariales = () => {
   return (
     <li>
       {diferenciasSalariales > 0 && (
-        <p>Diferencias Salariales: {diferenciasSalariales}</p>
+        <p>
+          Diferencias Salariales:{" "}
+          {formatearNumeroAmoneda(diferenciasSalariales)}
+        </p>
       )}
     </li>
   );
