@@ -17,12 +17,16 @@ export default function InputsData() {
     setFechaInicial,
     fechaFinal,
     setFechaFinal,
+    fechaDeRegistracion,
+    setFechaDeRegistracion,
     salario,
     setSalario,
     periodo,
     setPeriodo,
     salarioPercibido,
     setSalarioPercibido,
+    salarioRegistrado,
+    setSalarioRegistrado,
     horasLaboradasPorDia,
     setHorasLaboradasPorDia,
     diasTrabajadosPorSemana,
@@ -41,6 +45,11 @@ export default function InputsData() {
     console.log("Salario percibido: ", salarioPercibido);
   };
 
+  const handleSalarioRegistradoChange = (event: InputChangeEvent) => {
+    setSalarioRegistrado(Number(event.target.value));
+    console.log("Salario registrado: ", salarioRegistrado);
+  };
+
   const handleFechaInicioChange = (event: InputChangeEvent) => {
     setFechaInicial(new Date(event.target.value)),
       console.log("Fecha inicial: ", fechaInicial);
@@ -49,6 +58,11 @@ export default function InputsData() {
   const handleFechaFinalChange = (event: InputChangeEvent) => {
     setFechaFinal(new Date(event.target.value));
     console.log("Fecha final: ", fechaFinal);
+  };
+
+  const handleFechaDeRegistracionChange = (event: InputChangeEvent) => {
+    setFechaDeRegistracion(new Date(event.target.value));
+    console.log("Fecha de registración: ", fechaDeRegistracion);
   };
 
   const handleHorasLaboradasPorDiaChange = (event: InputChangeEvent) => {
@@ -139,10 +153,45 @@ export default function InputsData() {
           alignItems: "center",
         }}
       >
+        Remuneracion Registrada:
+        <input
+          type="number"
+          onChange={handleSalarioRegistradoChange}
+          style={{ border: "1px solid black", borderRadius: "5px" }}
+        />
+      </label>
+      <label
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         Fecha Inicial:
         <input
           type="date"
           onChange={handleFechaInicioChange}
+          style={{
+            border: "1px solid black",
+            borderRadius: "5px",
+            padding: "5px",
+          }}
+        />
+      </label>
+
+      <label
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Fecha Final:
+        <input
+          type="date"
+          onChange={handleFechaFinalChange}
           style={{
             border: "1px solid black",
             borderRadius: "5px",
@@ -158,10 +207,10 @@ export default function InputsData() {
           alignItems: "center",
         }}
       >
-        Fecha Final:
+        Fecha De Registracion:
         <input
           type="date"
-          onChange={handleFechaFinalChange}
+          onChange={handleFechaDeRegistracionChange}
           style={{
             border: "1px solid black",
             borderRadius: "5px",
