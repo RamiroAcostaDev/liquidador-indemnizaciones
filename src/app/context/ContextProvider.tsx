@@ -60,6 +60,12 @@ interface ContextType {
   setArt10: (value: number) => void;
   art15: number;
   setArt15: (value: number) => void;
+  art1: number;
+  setArt1: (value: number) => void;
+  art2: number;
+  setArt2: (value: number) => void;
+  art80: number;
+  setArt80: (value: number) => void;
 }
 
 interface ContextsProviderProps {
@@ -84,6 +90,10 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
   const [art9, setArt9] = useState(0);
   const [art10, setArt10] = useState(0);
   const [art15, setArt15] = useState(0);
+
+  const [art1, setArt1] = useState(0);
+  const [art2, setArt2] = useState(0);
+  const [art80, setArt80] = useState(0);
 
   const [fechaInicial, setFechaInicial] = useState(new Date());
   const [jornadaMaximaLegal, setJornadaMaximaLegal] = useState(0);
@@ -155,6 +165,12 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
         setArt10,
         art15,
         setArt15,
+        art1,
+        setArt1,
+        art2,
+        setArt2,
+        art80,
+        setArt80,
       }}
     >
       {children}

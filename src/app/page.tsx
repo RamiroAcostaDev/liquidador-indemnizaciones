@@ -23,6 +23,9 @@ import Art8Ley24013 from "./components/Art8Ley24013";
 import Art9Ley24013 from "./components/Art9Ley24013";
 import Art10Ley24013 from "./components/Art10Ley24013";
 import Art15Ley24013 from "./components/Art15Ley24013";
+import Art1Ley25323 from "./components/Art1Ley25323";
+import Art2Ley25323 from "./components/Art2Ley25323";
+import Art80 from "./components/Art80";
 
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
@@ -57,6 +60,9 @@ export default function CompensationLiquidator() {
               <Art9Ley24013 />
               <Art10Ley24013 />
               <Art15Ley24013 />
+              <Art1Ley25323 />
+              <Art2Ley25323 />
+              <Art80 />
             </ul>
           </Box>
         </Container>
