@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const VacacionesProporcionales = () => {
   const context = useContext(ContextProvider);
 
@@ -48,7 +48,10 @@ const VacacionesProporcionales = () => {
   return (
     <li>
       {vacacionesProporcionales > 0 && (
-        <p>Vacaciones Proporcionales: {vacacionesProporcionales}</p>
+        <p>
+          Vacaciones Proporcionales:{" "}
+          {formatearNumeroAmoneda(vacacionesProporcionales)}
+        </p>
       )}
     </li>
   );
