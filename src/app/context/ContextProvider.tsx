@@ -52,6 +52,7 @@ interface ContextType {
   setDiasTrabajadosPorSemana: (value: number) => void;
   jornadaMaximaLegal: number;
   setJornadaMaximaLegal: (value: number) => void;
+
   art8: number;
   setArt8: (value: number) => void;
   art9: number;
