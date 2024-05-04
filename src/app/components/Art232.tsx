@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const Art232 = () => {
   const context = useContext(ContextProvider);
 
@@ -31,7 +31,9 @@ const Art232 = () => {
     calcularArt232(salario, periodo);
   }, [salario, periodo]);
 
-  return <li>{art232 > 0 && <p>Art 232: {art232}</p>}</li>;
+  return (
+    <li>{art232 > 0 && <p>Art 232: {formatearNumeroAmoneda(art232)}</p>}</li>
+  );
 };
 
 export default Art232;

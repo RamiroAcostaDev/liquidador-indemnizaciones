@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, use } from "react";
 import { ContextProvider } from "../context/ContextProvider";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const SacVacacionesProporcionales = () => {
   const context = useContext(ContextProvider);
   if (!context) {
@@ -23,7 +23,10 @@ const SacVacacionesProporcionales = () => {
   return (
     <li>
       {sacSobreVacaciones > 0 && (
-        <p>SAC Vacaciones Proporcionales: {sacSobreVacaciones}</p>
+        <p>
+          SAC Vacaciones Proporcionales:{" "}
+          {formatearNumeroAmoneda(sacSobreVacaciones)}
+        </p>
       )}
     </li>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, use } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const SacProporcional = () => {
   const context = useContext(ContextProvider);
   if (!context) {
@@ -32,7 +32,11 @@ const SacProporcional = () => {
   }, [salario, fechaFinal]);
 
   return (
-    <li>{sacProporcional > 0 && <p>SAC Proporcional: {sacProporcional}</p>}</li>
+    <li>
+      {sacProporcional > 0 && (
+        <p>SAC Proporcional: {formatearNumeroAmoneda(sacProporcional)}</p>
+      )}
+    </li>
   );
 };
 

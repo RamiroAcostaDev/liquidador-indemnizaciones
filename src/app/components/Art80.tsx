@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
-
+import formatearNumeroAmoneda from "../helpers/FormatNumber";
 const Art80 = () => {
   const context = useContext(ContextProvider);
 
@@ -19,7 +19,9 @@ const Art80 = () => {
     calcularArt80(salario);
   }, [salario]);
 
-  return <li>{art80 > 0 && <p>Art 80 LCT: {art80}</p>}</li>;
+  return (
+    <li>{art80 > 0 && <p>Art 80 LCT: {formatearNumeroAmoneda(art80)}</p>}</li>
+  );
 };
 
 export default Art80;
