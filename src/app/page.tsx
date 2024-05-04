@@ -19,6 +19,10 @@ import VacacionesProporcionales from "./components/VacacionesProporcionales";
 import SacVacacionesProporcionales from "./components/SacVacacionesProporcionales";
 import DiferenciasSalariales from "./components/DiferenciasSalariales";
 import HorasExtras from "./components/HorasExtras";
+import Art8Ley24013 from "./components/Art8Ley24013";
+import Art9Ley24013 from "./components/Art9Ley24013";
+import Art10Ley24013 from "./components/Art10Ley24013";
+import Art15Ley24013 from "./components/Art15Ley24013";
 
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
@@ -49,6 +53,10 @@ export default function CompensationLiquidator() {
               <SacVacacionesProporcionales />
               <DiferenciasSalariales />
               <HorasExtras />
+              <Art8Ley24013 />
+              <Art9Ley24013 />
+              <Art10Ley24013 />
+              <Art15Ley24013 />
             </ul>
           </Box>
         </Container>

@@ -32,11 +32,15 @@ interface ContextType {
   setFechaInicial: (value: Date) => void;
   fechaFinal: Date;
   setFechaFinal: (value: Date) => void;
+  fechaDeRegistracion: Date;
+  setFechaDeRegistracion: (value: Date) => void;
   salario: number;
   setSalario: (value: number) => void;
   salarioPercibido: number;
   setSalarioPercibido: (value: number) => void;
   periodo: number;
+  salarioRegistrado: number;
+  setSalarioRegistrado: (value: number) => void;
   setPeriodo: (value: number) => void;
   diferenciasSalariales: number;
   setDiferenciasSalariales: (value: number) => void;
@@ -48,6 +52,14 @@ interface ContextType {
   setDiasTrabajadosPorSemana: (value: number) => void;
   jornadaMaximaLegal: number;
   setJornadaMaximaLegal: (value: number) => void;
+  art8: number;
+  setArt8: (value: number) => void;
+  art9: number;
+  setArt9: (value: number) => void;
+  art10: number;
+  setArt10: (value: number) => void;
+  art15: number;
+  setArt15: (value: number) => void;
 }
 
 interface ContextsProviderProps {
@@ -61,21 +73,29 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
   const [art233, setArt233] = useState(0);
   const [sacArt233, setSacArt233] = useState(0);
   const [diasTrabajadosMesEnCurso, setDiasTrabajadosMesEnCurso] = useState(0);
-  const [diasDelMes, setDiasDelMes] = useState(0);
-  const [salarioPorDia, setSalarioPorDia] = useState(0);
+
   const [vacacionesProporcionales, setVacacionesProporcionales] = useState(0);
   const [sacSobreVacaciones, setSacSobreVacaciones] = useState(0);
   const [sacProporcional, setSacProporcional] = useState(0);
   const [diferenciasSalariales, setDiferenciasSalariales] = useState(0);
   const [horasExtras, setHorasExtras] = useState(0);
-  const [horasLaboradasPorDia, setHorasLaboradasPorDia] = useState(0);
-  const [diasTrabajadosPorSemana, setDiasTrabajadosPorSemana] = useState(0);
-  const [jornadaMaximaLegal, setJornadaMaximaLegal] = useState(0);
+
+  const [art8, setArt8] = useState(0);
+  const [art9, setArt9] = useState(0);
+  const [art10, setArt10] = useState(0);
+  const [art15, setArt15] = useState(0);
 
   const [fechaInicial, setFechaInicial] = useState(new Date());
+  const [jornadaMaximaLegal, setJornadaMaximaLegal] = useState(0);
+  const [horasLaboradasPorDia, setHorasLaboradasPorDia] = useState(0);
+  const [diasTrabajadosPorSemana, setDiasTrabajadosPorSemana] = useState(0);
+  const [diasDelMes, setDiasDelMes] = useState(0);
+  const [salarioPorDia, setSalarioPorDia] = useState(0);
   const [fechaFinal, setFechaFinal] = useState(new Date());
+  const [fechaDeRegistracion, setFechaDeRegistracion] = useState(new Date());
   const [salario, setSalario] = useState(0);
   const [salarioPercibido, setSalarioPercibido] = useState(0);
+  const [salarioRegistrado, setSalarioRegistrado] = useState(0);
   const [periodo, setPeriodo] = useState(0);
 
   return (
@@ -107,10 +127,14 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
         setFechaInicial,
         fechaFinal,
         setFechaFinal,
+        fechaDeRegistracion,
+        setFechaDeRegistracion,
         salario,
         setSalario,
         salarioPercibido,
         setSalarioPercibido,
+        salarioRegistrado,
+        setSalarioRegistrado,
         periodo,
         setPeriodo,
         diferenciasSalariales,
@@ -123,6 +147,14 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
         setDiasTrabajadosPorSemana,
         jornadaMaximaLegal,
         setJornadaMaximaLegal,
+        art8,
+        setArt8,
+        art9,
+        setArt9,
+        art10,
+        setArt10,
+        art15,
+        setArt15,
       }}
     >
       {children}
