@@ -22,7 +22,9 @@ const Art15Ley24013 = () => {
   } = context;
 
   const calcularArt15Ley24013 = () => {
-    if (art8 || art9 || art10) {
+    if (art245 <= 0) {
+      setArt15(0);
+    } else if (art8 || art9 || art10) {
       let resultadoArt15Ley24013 =
         art245 + art232 + sacArt232 + art233 + sacArt233;
       setArt15(resultadoArt15Ley24013);

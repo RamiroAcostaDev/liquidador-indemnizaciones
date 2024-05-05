@@ -30,14 +30,17 @@ const DiferenciasSalariales = () => {
     console.log("meses de diferencia:", mesesDeDiferencia);
     const diferenciaEntreSalarios = salario - salarioPercibido;
     let diferenciasSalariales = 0;
-    if (mesesDeDiferencia < 24) {
+    if (salarioPercibido <= 0) {
+      setDiferenciasSalariales(0);
+    } else if (mesesDeDiferencia < 24) {
       diferenciasSalariales = diferenciaEntreSalarios * mesesDeDiferencia;
       console.log("Diferencias Salariales", diferenciasSalariales);
+      setDiferenciasSalariales(diferenciasSalariales);
     } else {
       diferenciasSalariales = diferenciaEntreSalarios * 24;
       console.log("Diferencias Salariales", diferenciasSalariales);
+      setDiferenciasSalariales(diferenciasSalariales);
     }
-    setDiferenciasSalariales(diferenciasSalariales);
   };
 
   useEffect(() => {
