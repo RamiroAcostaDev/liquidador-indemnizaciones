@@ -67,6 +67,21 @@ interface ContextType {
   setArt2: (value: number) => void;
   art80: number;
   setArt80: (value: number) => void;
+
+  art8Checked: boolean;
+  setArt8Checked: (value: boolean) => void;
+  art9Checked: boolean;
+  setArt9Checked: (value: boolean) => void;
+  art10Checked: boolean;
+  setArt10Checked: (value: boolean) => void;
+  DiferenciasSalarialesChecked: boolean;
+  setDiferenciasSalarialesChecked: (value: boolean) => void;
+  HorasExtrasChecked: boolean;
+  setHorasExtrasChecked: (value: boolean) => void;
+  Art80Checked: boolean;
+  setArt80Checked: (value: boolean) => void;
+  Art1Checked: boolean;
+  setArt1Checked: (value: boolean) => void;
 }
 
 interface ContextsProviderProps {
@@ -95,6 +110,15 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
   const [art1, setArt1] = useState(0);
   const [art2, setArt2] = useState(0);
   const [art80, setArt80] = useState(0);
+
+  const [art8Checked, setArt8Checked] = useState(false);
+  const [art9Checked, setArt9Checked] = useState(false);
+  const [art10Checked, setArt10Checked] = useState(false);
+  const [DiferenciasSalarialesChecked, setDiferenciasSalarialesChecked] =
+    useState(false);
+  const [HorasExtrasChecked, setHorasExtrasChecked] = useState(false);
+  const [Art80Checked, setArt80Checked] = useState(false);
+  const [Art1Checked, setArt1Checked] = useState(false);
 
   const [fechaInicial, setFechaInicial] = useState(new Date());
   const [jornadaMaximaLegal, setJornadaMaximaLegal] = useState(0);
@@ -172,6 +196,20 @@ export const ContextsProvider = ({ children }: ContextsProviderProps) => {
         setArt2,
         art80,
         setArt80,
+        art8Checked,
+        setArt8Checked,
+        art9Checked,
+        setArt9Checked,
+        art10Checked,
+        setArt10Checked,
+        DiferenciasSalarialesChecked,
+        setDiferenciasSalarialesChecked,
+        HorasExtrasChecked,
+        setHorasExtrasChecked,
+        Art80Checked,
+        setArt80Checked,
+        Art1Checked,
+        setArt1Checked,
       }}
     >
       {children}
