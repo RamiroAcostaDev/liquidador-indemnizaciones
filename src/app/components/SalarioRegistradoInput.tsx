@@ -2,16 +2,16 @@ import React, { useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
-const SalarioInput = () => {
+const SalarioRegistradoInput = () => {
   const context = useContext(ContextProvider);
   if (!context) {
     throw new Error("Context is undefined");
   }
-  const { salario, setSalario } = context;
+  const { salarioRegistrado, setSalarioRegistrado } = context;
 
-  const handleSalarioChange = (event: InputChangeEvent) => {
-    setSalario(Number(event.target.value));
-    console.log("Salario: ", salario);
+  const handleSalarioRegistradoChange = (event: InputChangeEvent) => {
+    setSalarioRegistrado(Number(event.target.value));
+    console.log("Salario registrado: ", salarioRegistrado);
   };
 
   return (
@@ -23,14 +23,14 @@ const SalarioInput = () => {
         alignItems: "center",
       }}
     >
-      Remuneracion Devengada:
+      Remuneracion Registrada:
       <input
         type="number"
-        onChange={handleSalarioChange}
+        onChange={handleSalarioRegistradoChange}
         style={{ border: "1px solid black", borderRadius: "5px" }}
       />
     </label>
   );
 };
 
-export default SalarioInput;
+export default SalarioRegistradoInput;
