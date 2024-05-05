@@ -2,16 +2,16 @@ import React, { useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
-const SalarioInput = () => {
+const FechaFinalInput = () => {
   const context = useContext(ContextProvider);
   if (!context) {
     throw new Error("Context is undefined");
   }
-  const { salario, setSalario } = context;
+  const { fechaFinal, setFechaFinal } = context;
 
-  const handleSalarioChange = (event: InputChangeEvent) => {
-    setSalario(Number(event.target.value));
-    console.log("Salario: ", salario);
+  const handleFechaFinalChange = (event: InputChangeEvent) => {
+    setFechaFinal(new Date(event.target.value));
+    console.log("Fecha final: ", fechaFinal);
   };
 
   return (
@@ -23,14 +23,18 @@ const SalarioInput = () => {
         alignItems: "center",
       }}
     >
-      Remuneracion Devengada:
+      Fecha Final:
       <input
-        type="number"
-        onChange={handleSalarioChange}
-        style={{ border: "1px solid black", borderRadius: "5px" }}
+        type="date"
+        onChange={handleFechaFinalChange}
+        style={{
+          border: "1px solid black",
+          borderRadius: "5px",
+          padding: "5px",
+        }}
       />
     </label>
   );
 };
 
-export default SalarioInput;
+export default FechaFinalInput;
