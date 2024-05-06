@@ -1,22 +1,14 @@
 import React, { useEffect, useContext } from "react";
-import { Box } from "@mui/material";
-
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-import SalarioInput from "./SalarioInput";
-import SalarioPercibidoInput from "./SalarioPercibidoInput";
-import SalarioRegistradoInput from "./SalarioRegistradoInput";
-import FechaDeInicioInput from "./FechaDeInicioInput";
-import FechaFinalInput from "./FechaFinalInput";
-import FechaRegistracionInput from "./FechaRegistracionInput";
-import HorasTrabajadasPorDiaInput from "./HorasTrabajadasPorDiaInput";
-import DiasTrabajadosPorSemanaInput from "./DiasTrabajadosPorSemanaInput";
-import JornadaMaximaLegalInput from "./JornadaMaximaLegalInput";
-import PreavisoCheckbox from "./PreavisoCheckbox";
+import { Box } from "@mui/material";
 
-interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
+import SalarioInput from "../components/SalarioInput";
+import FechaDeInicioInput from "../components/FechaDeInicioInput";
+import FechaFinalInput from "../components/FechaFinalInput";
+import PreavisoCheckbox from "../components/PreavisoCheckbox";
 
-export default function InputsData() {
+const IndemnizacionPorAntiguedadInputs = () => {
   const context = useContext(ContextProvider);
 
   if (!context) {
@@ -54,24 +46,24 @@ export default function InputsData() {
   useEffect(() => {
     calculatePeriod(fechaInicial, fechaFinal);
   }, [fechaInicial, fechaFinal]);
-
   return (
     <Box
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
       alignItems={"center"}
-      gap={3}
+      gap={2}
+      border={1}
+      borderRadius={5}
+      padding={2}
     >
-      <SalarioPercibidoInput />
-      <SalarioRegistradoInput />
+      <h1>Indemnizacion por antiguedad</h1>
+      <SalarioInput />
       <FechaDeInicioInput />
       <FechaFinalInput />
-      <FechaRegistracionInput />
-      <HorasTrabajadasPorDiaInput />
-      <DiasTrabajadosPorSemanaInput />
-      <JornadaMaximaLegalInput />
       <PreavisoCheckbox />
     </Box>
   );
-}
+};
+
+export default IndemnizacionPorAntiguedadInputs;

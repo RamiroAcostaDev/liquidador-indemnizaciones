@@ -17,7 +17,6 @@ const HorasExtras = () => {
     fechaInicial,
     fechaFinal,
     diasTrabajadosPorSemana,
-
     jornadaMaximaLegal,
   } = context;
 
@@ -29,39 +28,54 @@ const HorasExtras = () => {
     fechaInicial: Date,
     fechaFinal: Date
   ) => {
-    const salarioPorHora = salario / (jornadaMaxima * 4);
-    console.log("Salario por hora: ", salarioPorHora);
-    const valorHoraExtra = salarioPorHora * 1.5;
-    console.log("Valor hora extra: ", valorHoraExtra);
-    const horasSemanales = horasDiarias * diasLaborados;
-    console.log("Horas semanales: ", horasSemanales);
-    const fechaDeInicio = moment(fechaInicial);
-    const fechaDeFinalizacion = moment(fechaFinal);
-    const mesesDeDiferencia = fechaDeFinalizacion.diff(fechaDeInicio, "months");
-    console.log("meses de diferencia:", mesesDeDiferencia);
-    let horasExtrasSemanal = 0;
-    let horasExtrasMensual = 0;
-    let horasExtrasTotales = 0;
-    if (horasSemanales <= jornadaMaxima) {
-      console.log("No se calculan horas extras");
-      setHorasExtras(horasExtras);
+    if (
+      salario === 0 ||
+      horasDiarias === 0 ||
+      diasLaborados === 0 ||
+      jornadaMaxima === 0 ||
+      fechaInicial === null ||
+      fechaFinal === null
+    ) {
+      let horasExtrasTotales = 0;
+      setHorasExtras(horasExtrasTotales);
     } else {
-      const diferenciaHoras = horasSemanales - jornadaMaxima;
-      console.log("Diferencia horas: ", diferenciaHoras);
-      horasExtrasSemanal = diferenciaHoras * valorHoraExtra;
-      console.log("Horas extras: ", horasExtrasSemanal);
-      horasExtrasMensual = horasExtrasSemanal * 4;
-      console.log("Horas extras mensual: ", horasExtrasMensual);
-      if (mesesDeDiferencia < 24) {
-        horasExtrasTotales = horasExtrasMensual * mesesDeDiferencia;
-        console.log("Horas Extras", horasExtrasTotales);
+      const salarioPorHora = salario / (jornadaMaxima * 4);
+      console.log("Salario por hora: ", salarioPorHora);
+      const valorHoraExtra = salarioPorHora * 1.5;
+      console.log("Valor hora extra: ", valorHoraExtra);
+      const horasSemanales = horasDiarias * diasLaborados;
+      console.log("Horas semanales: ", horasSemanales);
+      const fechaDeInicio = moment(fechaInicial);
+      const fechaDeFinalizacion = moment(fechaFinal);
+      const mesesDeDiferencia = fechaDeFinalizacion.diff(
+        fechaDeInicio,
+        "months"
+      );
+      console.log("meses de diferencia:", mesesDeDiferencia);
+      let horasExtrasSemanal = 0;
+      let horasExtrasMensual = 0;
+      let horasExtrasTotales = 0;
+      if (horasSemanales <= jornadaMaxima) {
+        console.log("No se calculan horas extras");
+        setHorasExtras(horasExtras);
       } else {
-        horasExtrasTotales = horasExtrasMensual * 24;
-        console.log("Horas Extras", horasExtrasTotales);
+        const diferenciaHoras = horasSemanales - jornadaMaxima;
+        console.log("Diferencia horas: ", diferenciaHoras);
+        horasExtrasSemanal = diferenciaHoras * valorHoraExtra;
+        console.log("Horas extras: ", horasExtrasSemanal);
+        horasExtrasMensual = horasExtrasSemanal * 4;
+        console.log("Horas extras mensual: ", horasExtrasMensual);
+        if (mesesDeDiferencia < 24) {
+          horasExtrasTotales = horasExtrasMensual * mesesDeDiferencia;
+          console.log("Horas Extras", horasExtrasTotales);
+        } else {
+          horasExtrasTotales = horasExtrasMensual * 24;
+          console.log("Horas Extras", horasExtrasTotales);
+        }
       }
-    }
 
-    setHorasExtras(horasExtrasTotales);
+      setHorasExtras(horasExtrasTotales);
+    }
   };
 
   useEffect(() => {
