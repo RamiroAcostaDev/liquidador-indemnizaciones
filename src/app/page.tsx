@@ -7,27 +7,15 @@
 import { ContextsProvider } from "./context/ContextProvider";
 import { Box, Container } from "@mui/material";
 import React from "react";
-import InputsData from "./components/InputsData";
-import Art245 from "./components/Art245";
-import Art232 from "./components/Art232";
-import SacArt232 from "./components/SacArt232";
-import Art233 from "./components/Art233";
-import SacArt233 from "./components/SacArt233";
-import DiasTrabajadosMesEnCurso from "./components/DiasTrabajadosMesEnCurso";
-import SacProporcional from "./components/SacProporcional";
-import VacacionesProporcionales from "./components/VacacionesProporcionales";
-import SacVacacionesProporcionales from "./components/SacVacacionesProporcionales";
-import DiferenciasSalariales from "./components/DiferenciasSalariales";
-import HorasExtras from "./components/HorasExtras";
-import Art8Ley24013 from "./components/Art8Ley24013";
-import Art9Ley24013 from "./components/Art9Ley24013";
-import Art10Ley24013 from "./components/Art10Ley24013";
-import Art15Ley24013 from "./components/Art15Ley24013";
-import Art1Ley25323 from "./components/Art1Ley25323";
-import Art2Ley25323 from "./components/Art2Ley25323";
-import Art80 from "./components/Art80";
-
-interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
+import IndemnizacionPorAntiguedad from "./pages/Indemnizacion";
+import IndemnizacionPorAntiguedadInputs from "./pages/IndemnizacionPorAntiguedadInputs";
+import HorasExtrasInputs from "./pages/HorasExtrasInputs";
+import DiferenciasSalarialesInputs from "./pages/DiferenciasSalarialesInputs";
+import Art9Input from "./pages/Art9Input";
+import Art8Input from "./pages/Art8Input";
+import Art10Input from "./pages/Art10Input";
+import Art80Input from "./pages/Art80Input";
+import Art1Input from "./pages/Art1Input";
 
 export default function CompensationLiquidator() {
   return (
@@ -37,33 +25,32 @@ export default function CompensationLiquidator() {
           <Box
             display={"flex"}
             flexDirection={"column"}
-            justifyContent={"center"}
+            justifyContent={"flex-start"}
             alignItems={"center"}
-            gap={10}
+            gap={3}
           >
-            <h1>Compensation Liquidator</h1>
-
-            <InputsData />
-            <ul>
-              <Art245 />
-              <Art232 />
-              <SacArt232 />
-              <Art233 />
-              <SacArt233 />
-              <DiasTrabajadosMesEnCurso />
-              <SacProporcional />
-              <VacacionesProporcionales />
-              <SacVacacionesProporcionales />
-              <DiferenciasSalariales />
-              <HorasExtras />
-              <Art8Ley24013 />
-              <Art9Ley24013 />
-              <Art10Ley24013 />
-              <Art15Ley24013 />
-              <Art1Ley25323 />
-              <Art2Ley25323 />
-              <Art80 />
-            </ul>
+            <h1>Liquidaciones Laborales</h1>
+            <Box display={"flex"} flexDirection={"column"} gap={2}>
+              <IndemnizacionPorAntiguedadInputs />
+              <HorasExtrasInputs />
+              <DiferenciasSalarialesInputs />
+              <Art8Input />
+              <Art9Input />
+              <Art10Input />
+              <Art1Input />
+              <Art80Input />
+            </Box>
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              gap={3}
+              border={1}
+              borderRadius={5}
+              padding={2}
+            >
+              <IndemnizacionPorAntiguedad />
+            </Box>
           </Box>
         </Container>
       </ContextsProvider>
