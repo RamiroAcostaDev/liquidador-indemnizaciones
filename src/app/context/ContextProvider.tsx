@@ -6,6 +6,27 @@ export const ContextProvider = createContext<ContextType | undefined>(
 );
 
 interface ContextType {
+  //datos ingresados por el usuario
+  fechaInicial: Date;
+  setFechaInicial: (value: Date) => void;
+  fechaFinal: Date;
+  setFechaFinal: (value: Date) => void;
+  fechaDeRegistracion: Date;
+  setFechaDeRegistracion: (value: Date) => void;
+  salario: number;
+  setSalario: (value: number) => void;
+  salarioPercibido: number;
+  setSalarioPercibido: (value: number) => void;
+  periodo: number;
+  salarioRegistrado: number;
+  setSalarioRegistrado: (value: number) => void;
+  setPeriodo: (value: number) => void;
+  preavisoChecked: boolean;
+  setPreavisoChecked: (value: boolean) => void;
+  art9Checked: boolean;
+  setArt9Checked: (value: boolean) => void;
+
+  //estados para indemnizaciones
   art245: number;
   setArt245: (value: number) => void;
   art232: number;
@@ -28,20 +49,6 @@ interface ContextType {
   setSacSobreVacaciones: (value: number) => void;
   sacProporcional: number;
   setSacProporcional: (value: number) => void;
-  fechaInicial: Date;
-  setFechaInicial: (value: Date) => void;
-  fechaFinal: Date;
-  setFechaFinal: (value: Date) => void;
-  fechaDeRegistracion: Date;
-  setFechaDeRegistracion: (value: Date) => void;
-  salario: number;
-  setSalario: (value: number) => void;
-  salarioPercibido: number;
-  setSalarioPercibido: (value: number) => void;
-  periodo: number;
-  salarioRegistrado: number;
-  setSalarioRegistrado: (value: number) => void;
-  setPeriodo: (value: number) => void;
   diferenciasSalariales: number;
   setDiferenciasSalariales: (value: number) => void;
   horasExtras: number;
@@ -52,7 +59,18 @@ interface ContextType {
   setDiasTrabajadosPorSemana: (value: number) => void;
   jornadaMaximaLegal: number;
   setJornadaMaximaLegal: (value: number) => void;
-
+  art8Checked: boolean;
+  setArt8Checked: (value: boolean) => void;
+  art10Checked: boolean;
+  setArt10Checked: (value: boolean) => void;
+  DiferenciasSalarialesChecked: boolean;
+  setDiferenciasSalarialesChecked: (value: boolean) => void;
+  horasExtrasChecked: boolean;
+  setHorasExtrasChecked: (value: boolean) => void;
+  art80Checked: boolean;
+  setArt80Checked: (value: boolean) => void;
+  art1Checked: boolean;
+  setArt1Checked: (value: boolean) => void;
   art8: number;
   setArt8: (value: number) => void;
   art9: number;
@@ -67,23 +85,6 @@ interface ContextType {
   setArt2: (value: number) => void;
   art80: number;
   setArt80: (value: number) => void;
-
-  preavisoChecked: boolean;
-  setPreavisoChecked: (value: boolean) => void;
-  art8Checked: boolean;
-  setArt8Checked: (value: boolean) => void;
-  art9Checked: boolean;
-  setArt9Checked: (value: boolean) => void;
-  art10Checked: boolean;
-  setArt10Checked: (value: boolean) => void;
-  DiferenciasSalarialesChecked: boolean;
-  setDiferenciasSalarialesChecked: (value: boolean) => void;
-  horasExtrasChecked: boolean;
-  setHorasExtrasChecked: (value: boolean) => void;
-  art80Checked: boolean;
-  setArt80Checked: (value: boolean) => void;
-  art1Checked: boolean;
-  setArt1Checked: (value: boolean) => void;
 }
 
 interface ContextsProviderProps {
