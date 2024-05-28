@@ -5,4 +5,4 @@ const formatearNumeroAmoneda = (numero: number) => {
   }).format(numero);
 };
 
-export default formatearNumeroAmoneda;
+export { formatearNumeroAmoneda };
