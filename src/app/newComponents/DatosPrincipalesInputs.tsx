@@ -95,6 +95,34 @@ const DatosPrincipalesInputs = () => {
             />
           </label>
         </Box>
+        <Box>
+          <label
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Hubo preaviso?
+            <input
+              type="checkbox"
+              onChange={() =>
+                dispatch({
+                  type: "PREAVISO_CHECKED",
+                  payload: 0,
+                })
+              }
+              max={48}
+              min={1}
+              style={{
+                border: "1px solid black",
+                borderRadius: "5px",
+                padding: "5px",
+              }}
+            />
+          </label>
+        </Box>
         <button
           onClick={() =>
             dispatch({

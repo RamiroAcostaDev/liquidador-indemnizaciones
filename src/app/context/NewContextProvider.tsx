@@ -20,6 +20,8 @@ interface InitialState {
   horasTrabajadas: number;
   diasTrabajados: number;
   jornadaCCT: number;
+  //Checkbox
+  preavisoChecked: boolean;
   //indemnizaciones
   art245: number;
   art232: number;
@@ -40,7 +42,8 @@ interface Action {
     | "FECHA_INGRESO"
     | "FECHA_EGRESO"
     | "FECHA_REGISTRACION"
-    | "CALCULAR";
+    | "CALCULAR"
+    | "PREAVISO_CHECKED";
 
   payload: number | Date;
 }
@@ -60,6 +63,8 @@ const initialState: InitialState = {
   horasTrabajadas: 0,
   diasTrabajados: 0,
   jornadaCCT: 0,
+  //Checkbox
+  preavisoChecked: false,
   //indemnizaciones
   art245: 0,
   art232: 0,
@@ -94,6 +99,9 @@ const reducer = (state: InitialState, action: Action) => {
       };
     case "FECHA_REGISTRACION":
       return { ...state, fechaDeRegistracion: new Date(action.payload) };
+
+    case "PREAVISO_CHECKED":
+      return { ...state, preavisoChecked: !state.preavisoChecked };
     case "CALCULAR":
       return {
         ...state,
@@ -104,14 +112,27 @@ const reducer = (state: InitialState, action: Action) => {
         ),
         art232: calcularArt232(
           state.remuneracionDevengada,
-          state.totalPeriodos
+          state.totalPeriodos,
+          state.preavisoChecked
         ),
         sacArt232: sacSobreArt232(
-          calcularArt232(state.remuneracionDevengada, state.totalPeriodos)
+          calcularArt232(
+            state.remuneracionDevengada,
+            state.totalPeriodos,
+            state.preavisoChecked
+          )
         ),
-        art233: calcularArt233(state.remuneracionDevengada, state.fechaEgreso),
+        art233: calcularArt233(
+          state.remuneracionDevengada,
+          state.fechaEgreso,
+          state.preavisoChecked
+        ),
         sacArt233: sacArt233(
-          calcularArt233(state.remuneracionDevengada, state.fechaEgreso)
+          calcularArt233(
+            state.remuneracionDevengada,
+            state.fechaEgreso,
+            state.preavisoChecked
+          )
         ),
         sacProporcional: calcularSacProporcional(
           state.remuneracionDevengada,
@@ -166,19 +187,27 @@ const calcularArt245 = (remuneracion: number, periodo: number) => {
   return resultado;
 };
 //calcular art 232
-const calcularArt232 = (remuneracion: number, periodo: number) => {
+const calcularArt232 = (
+  remuneracion: number,
+  periodo: number,
+  preavisoChecked: boolean
+) => {
   let salarioPorDia = remuneracion / 30;
   let indemnizacion232 = 0;
-  if (periodo == 1) {
-    indemnizacion232 = salarioPorDia * 15;
+  if (preavisoChecked === true) {
+    return (indemnizacion232 = 0);
+  } else {
+    if (periodo == 1) {
+      indemnizacion232 = salarioPorDia * 15;
+    }
+    if (periodo > 1 && periodo <= 5) {
+      indemnizacion232 = salarioPorDia * 30;
+    }
+    if (periodo > 5) {
+      indemnizacion232 = salarioPorDia * 60;
+    }
+    return indemnizacion232;
   }
-  if (periodo > 1 && periodo <= 5) {
-    indemnizacion232 = salarioPorDia * 30;
-  }
-  if (periodo > 5) {
-    indemnizacion232 = salarioPorDia * 60;
-  }
-  return indemnizacion232;
 };
 
 const sacSobreArt232 = (art232: number) => {
@@ -186,19 +215,28 @@ const sacSobreArt232 = (art232: number) => {
   return sacArt232;
 };
 //art 233
-const calcularArt233 = (remuneracion: number, fechaFinal: Date) => {
-  const diasTrabajados = moment(fechaFinal)
-    .utcOffset(new Date().getTimezoneOffset())
-    .date();
-  const diasDelMes = moment(fechaFinal).daysInMonth();
+const calcularArt233 = (
+  remuneracion: number,
+  fechaFinal: Date,
+  preavisoChecked: boolean
+) => {
   let indemnizacion233 = 0;
-  const salarioPorDia = remuneracion / diasDelMes;
-  if (diasTrabajados === diasDelMes) {
-    indemnizacion233 = 0;
+  if (preavisoChecked === true) {
+    return (indemnizacion233 = 0);
   } else {
-    indemnizacion233 = salarioPorDia * (diasDelMes - diasTrabajados);
+    const diasTrabajados = moment(fechaFinal)
+      .utcOffset(new Date().getTimezoneOffset())
+      .date();
+    const diasDelMes = moment(fechaFinal).daysInMonth();
+    let indemnizacion233 = 0;
+    const salarioPorDia = remuneracion / diasDelMes;
+    if (diasTrabajados === diasDelMes) {
+      indemnizacion233 = 0;
+    } else {
+      indemnizacion233 = salarioPorDia * (diasDelMes - diasTrabajados);
+    }
+    return indemnizacion233;
   }
-  return indemnizacion233;
 };
 
 const sacArt233 = (art233: number) => {
