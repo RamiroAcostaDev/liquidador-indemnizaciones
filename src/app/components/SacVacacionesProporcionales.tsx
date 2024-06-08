@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, use } from "react";
 import { ContextProvider } from "../context/ContextProvider";
-import formatearNumeroAmoneda from "../helpers/FormatNumber";
+import formatearNumeroAmoneda from "../helpers/Functions";
 const SacVacacionesProporcionales = () => {
   const context = useContext(ContextProvider);
   if (!context) {

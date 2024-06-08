@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
-import formatearNumeroAmoneda from "../helpers/FormatNumber";
+import formatearNumeroAmoneda from "../helpers/Functions";
 
 const Art1Ley25323 = () => {
   const context = useContext(ContextProvider);

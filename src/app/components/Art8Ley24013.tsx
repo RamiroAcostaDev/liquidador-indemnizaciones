@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/ContextProvider";
 import moment from "moment";
-import formatearNumeroAmoneda from "../helpers/FormatNumber";
+import formatearNumeroAmoneda from "../helpers/Functions";
 
 const Art8Ley24013 = () => {
   const context = useContext(ContextProvider);
