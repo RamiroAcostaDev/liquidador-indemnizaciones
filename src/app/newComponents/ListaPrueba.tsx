@@ -31,11 +31,10 @@ const ListaPrueba = () => {
   return (
     <Container>
       <Box display={"flex"} flexDirection={"column"}>
-        {/* <p>Remuneracion Devengada {remuneracionDevengada}</p>
+        <p>Remuneracion Devengada {remuneracionDevengada}</p>
         <p>Remuneración Percibida: {remuneracionPercibida}</p>
-        <p>Fecha de ingreso: {fechaIngreso.toDateString()}</p>
-        <p>Fecha de egreso: {fechaEgreso.toDateString()}</p>
-        <p>Periodos: {totalPeriodos}</p> */}
+
+        <p>Periodos: {totalPeriodos}</p>
         <p>
           Indemnización por despido (Art. 245): <br />
           {art245}

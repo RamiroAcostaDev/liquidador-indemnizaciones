@@ -14,8 +14,6 @@ export default function CompensationLiquidator() {
             flexDirection={"row"}
             justifyContent={"center"}
             gap={5}
-            border={1}
-            borderRadius={5}
             padding={2}
           >
             <DatosPrincipalesInputs />
