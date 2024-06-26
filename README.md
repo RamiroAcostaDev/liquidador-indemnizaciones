@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#Calculador de Indemnizaciones Laborales ⚖️
+##Descripción:
+<p>
+Proyecto freelance realizado para un grupo de abogados, que permite el cálculo de indemnizaciones laborales por despido, incluyendo multas y actualización de montos.
+Esta aplicación permite realizar de forma sencilla y práctica una tarea recurrente dentro del rubro, teniendo un impacto directo y real en la efectividad, celeridad y precisión de la labor jurídica.
+</p>
+## Características:
+Echa un vistazo a las principales características de la app:
+<ul>
+  <li>Cálculo de indemnización por despido (Art. 245 LCT)</li>
+  <li>Cálculo de indemnización por preaviso no otorgado (Art. 232 LCT)</li>
+  <li>Cálculo de indemnización por integración de mes de despido (Art. 233 LCT)</li>
+  <li>Cálculo de días trabajados en el mes en curso del despido</li>
+  <li>Cálculo de Salario Anual Complementario proporcional (SAC)</li>
+  <li>Cálculo de indemnización por falta de entrega de certificados de trabajo (Art. 80 LCT)</li>
+  <li>Cálculo de diferencias salariales</li>
+  <li>Cálculo de horas extras laboradas</li>
+  <li>Cálculo de multa por falta de registración laboral (Art. 8 Ley 24.013)</li>
+  <li>Cálculo de multas por registración deficiente laboral (Art. 10 y 9 Ley 24.013)</li>
+  <li>Actualización de importes e intereses (en construcción)</li>
+</ul>
+##Tecnologías utilizadas:
+<ul>
+  <li>React</li>
+  <li>TypeScript</li>
+  <li>Next.Js</li>
+  <li>Material UI</li>
+</ul>
+##El proceso:
+Se implementó la utilización del hook useContext, con el fin de compartir estados entre los componentes y así evitar prácticas de prop drilling.
+Asimismo, se utilizó el hook useReducer para permitir la actualización dinámica de estados.
